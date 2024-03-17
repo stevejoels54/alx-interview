@@ -2,19 +2,22 @@
 """ Prime Game problem """
 
 
-# function to generate prime numbers using Sieve of Eratosthenes algorithm
-def generate_primes(limit):
-    sieve = [True] * (limit + 1)
-    sieve[0] = sieve[1] = False
+def is_prime(n):
+    """ Determine if a number is prime """
+    if n < 2:
+        return False
+    for i in range(2, int(n ** 0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+
+def generate_primes(n):
+    """ Generate a list of prime numbers """
     primes = []
-    for num in range(2, int(limit ** 0.5) + 1):
-        if sieve[num]:
-            primes.append(num)
-            for multiple in range(num * num, limit + 1, num):
-                sieve[multiple] = False
-    for num in range(int(limit ** 0.5) + 1, limit + 1):
-        if sieve[num]:
-            primes.append(num)
+    for i in range(2, n + 1):
+        if is_prime(i):
+            primes.append(i)
     return primes
 
 
