@@ -2,31 +2,29 @@
 """ Prime Game problem """
 
 
-def is_prime(n):
-    """ Determine if a number is prime """
-    if n < 2:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-
+# function to generate prime numbers using Sieve of Eratosthenes algorithm
 def generate_primes(n):
     """ Generate a list of prime numbers """
     primes = []
+    is_prime = [True for _ in range(n + 1)]
+    is_prime[0] = is_prime[1] = False
+    for i in range(2, int(n ** 0.5) + 1):
+        if is_prime[i]:
+            for j in range(i * i, n + 1, i):
+                is_prime[j] = False
     for i in range(2, n + 1):
-        if is_prime(i):
+        if is_prime[i]:
             primes.append(i)
     return primes
 
 
 def isWinner(x, nums):
     """ Determine who wins the game """
-    wins = {"Maria": 0, "Ben": 0}
 
     if not nums or x < 1:
         return None
+
+    wins = {"Maria": 0, "Ben": 0}
 
     for i in range(x):
         num = nums[i]
