@@ -3,18 +3,18 @@
 
 
 # function to generate prime numbers using Sieve of Eratosthenes algorithm
-def generate_primes(n):
-    """ Generate a list of prime numbers """
+def generate_primes(limit):
+    sieve = [True] * (limit + 1)
+    sieve[0] = sieve[1] = False
     primes = []
-    is_prime = [True for _ in range(n + 1)]
-    is_prime[0] = is_prime[1] = False
-    for i in range(2, int(n ** 0.5) + 1):
-        if is_prime[i]:
-            for j in range(i * i, n + 1, i):
-                is_prime[j] = False
-    for i in range(2, n + 1):
-        if is_prime[i]:
-            primes.append(i)
+    for num in range(2, int(limit ** 0.5) + 1):
+        if sieve[num]:
+            primes.append(num)
+            for multiple in range(num * num, limit + 1, num):
+                sieve[multiple] = False
+    for num in range(int(limit ** 0.5) + 1, limit + 1):
+        if sieve[num]:
+            primes.append(num)
     return primes
 
 
